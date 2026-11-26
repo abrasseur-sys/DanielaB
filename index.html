@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Método Científico</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+           
+            background-image: url('https://previews.123rf.com/images/vska/vska1601/vska160100099/50856880-scientific-future-technology-for-business-presentation-flyer-poster-vector-concept-background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-color: #0b132b;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            padding: 1.25em;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 56.25em;
+            background: rgba(255, 255, 255, 0.95);
+            border: 0.125em solid #ffffff;
+            border-radius: 0.75em;
+            padding: 1.875em;
+            box-shadow: 0 0.25em 0.938em rgba(13, 110, 190, 0.781);
+            position: relative;
+        }
+
+        .main-title {
+            text-align: center;
+            margin-bottom: 1.25em;
+        }
+
+        .main-title h1 {
+            font-size: 2rem;
+            border-bottom: 0.125em solid #b0dae7;
+            display: inline-block;
+            padding: 0 7em 0.188em;
+        }
+
+        .sketch-box {
+            border: 0.125em solid #b3cbe7;
+            border-radius: 0.938em;
+            padding: 1.25em;
+            text-align: center;
+            margin-bottom: 1.875em;
+            background-color: #e3eeff;
+        }
+
+        .steps-section {
+            border: 0.063em dashed #abc3e7;
+            border-radius: 0.625em;
+            padding: 1.25em;
+            margin-bottom: 1.875em;
+            position: relative;
+            background-color: rgba(212, 229, 252, 0.8);
+        }
+
+        .steps-label {
+            width: fit-content;
+            margin: -2.188em auto 1.25em auto;
+            background: rgb(232, 238, 255);
+            padding: 0.313em 1.25em;
+            border: 0.125em solid #8896c0;
+            border-radius: 1.25em;
+            font-weight: bold;
+            font-size: 1.2rem;
+            letter-spacing: 0.125em;
+        }
+
+        .steps-grid {
+            display: flex;
+            justify-content: space-between;
+            gap: 2.5em;
+        }
+
+        .column {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.938em;
+        }
+
+        .communication-row {
+            display: flex;
+            justify-content: center;
+            margin-top: 1.25em;
+        }
+
+        .step-btn {
+            background-color: #e0ebf8;
+            border: 0.125em solid #444;
+            border-radius: 0.375em;
+            padding: 0.75em 0.938em;
+            font-size: 0.95rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0.125em 0.125em 0em #444;
+            width: 100%;
+            text-align: center;
+        }
+
+        .step-btn:hover {
+            background-color: #d8e6fa;
+            transform: translate(-0.063em, -0.063em);
+            box-shadow: 0.188em 0.188em 0em #444;
+        }
+
+        .step-btn:active {
+            transform: translate(0.063em, 0.063em);
+            box-shadow: 0.063em 0.063em 0em #444;
+        }
+
+        .step-btn.communication {
+            width: auto;
+            min-width: 15.625em;
+        }
+
+        .formats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            justify-content: space-between;
+            gap: 0.938em;
+            margin-bottom: 2.188em;
+        }
+
+        .format-card {
+            border: 0.125em solid #555;
+            background: #d6e3f7;
+            display: flex;
+            flex-direction: column;
+            height: 11.25em;
+            box-shadow: 0.188em 0.188em 0.375em rgba(0,0,0,0.05);
+            overflow: hidden;
+        }
+
+        .img-container {
+            flex: 1;
+            width: 100%;
+            height: 100%;
+            border-bottom: 0.125em solid #555;
+            overflow: hidden;
+        }
+
+        .img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-footer {
+            padding: 0.5em;
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+            background: #fff;
+        }
+
+        .bibliography {
+            font-size: 0.9rem;
+            margin-top: 0.938em;
+            color: #666;
+        }
+
+        .modal-overlay {
+            display: none; 
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: #f0edd5;
+            border: 0.063em solid #fae953;
+            padding: 1.563em;
+            width: 90%;
+            max-width: 30em;
+            position: relative;
+            box-shadow: 0.625em 0.625em 0em rgba(0,0,0,0.15);
+            transform: none;
+        }
+
+        .close-modal-btn {
+            position: absolute;
+            top: 0.5em;
+            right: 0.75em;
+            background: none;
+            border: 0.063em solid #333;
+            padding: 0.125em 0.375em;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .modal-body-layout {
+            display: flex;
+            gap: 1.25em;
+            margin-top: 0.938em;
+        }
+
+        .modal-graphic-box {
+            width: 7.5em;
+            height: 7.5em;
+            border: 0.125em solid #333;
+            background: rgb(224, 236, 250);
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+
+        .modal-graphic-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .modal-text-side {
+            flex: 1;
+        }
+
+        .modal-text-side h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5em;
+            text-transform: uppercase;
+            border-bottom: 0.063em dashed #333;
+            padding-bottom: 0.25em;
+        }
+
+        .modal-text-side p {
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .modal-overlay.show-modal {
+            display: flex;
+        }
+
+        @keyframes modalPopIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-overlay.show-modal .modal-content {
+            animation: modalPopIn 0.2s ease-out forwards;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <header class="main-title">
+            <h1>Método Científico</h1>
+        </header>
+
+        <section class="sketch-box">
+            <h2>El método científico son los pasos a seguir para encontrar una explicación válida que justifique un hecho u observación. Los pasos se siguen de la siguiente forma:</h2>
+        </section>
+
+        <section class="steps-section">
+            <div class="steps-label">PASOS</div>
+            
+            <div class="steps-grid">
+                <div class="column">
+                    <button class="step-btn" onclick="openPasoInfo('observacion')">OBSERVACIÓN</button>
+                    <button class="step-btn" onclick="openPasoInfo('hipotesis')">HIPÓTESIS</button>
+                </div>
+
+                <div class="column">
+                    <button class="step-btn" onclick="openPasoInfo('experimentacion')">EXPERIMENTACIÓN</button>
+                    <button class="step-btn" onclick="openPasoInfo('analisis')">ANÁLISIS DE RESULTADOS - CONCLUSIÓN</button>
+                </div>
+            </div>
+
+            <div class="communication-row">
+                <button class="step-btn communication" onclick="openPasoInfo('comunicacion')">COMUNICACIÓN</button>
+            </div>
+        </section>
+
+        <section class="formats-grid">
+            <div class="format-card">
+                <div class="img-container">
+                    <img src="https://image.slidesharecdn.com/marcoacuberosmarn-131217095132-phpapp02/85/Ejemplo-De-Informe-cientifico-1-320.jpg" alt="Informe Científico">
+                </div>
+                <div class="card-footer">INFORME CIENTÍFICO</div>
+            </div>
+            <div class="format-card">
+                <div class="img-container">
+                    <img src="https://publipuntos.com/wp-content/uploads/2023/04/poster-insuficiciencia-cardiaca-enfermeria.jpg" alt="Póster">
+                </div>
+                <div class="card-footer">POSTER</div>
+            </div>
+            <div class="format-card">
+                <div class="img-container">
+                    <img src="https://i.pinimg.com/736x/65/02/ee/6502ee729ba0cf91f1db493d264a3216.jpg" alt="Artículos en Revistas">
+                </div>
+                <div class="card-footer">ARTÍCULOS EN REVISTAS</div>
+            </div>
+            <div class="format-card">
+                <div class="img-container">
+                    <img src="https://i.pinimg.com/736x/3c/5f/15/3c5f15a69d45923af7884a1ce8c1ca0c.jpg" alt="Paper">
+                </div>
+                <div class="card-footer">PAPER</div>
+            </div>
+        </section>
+
+        <section class="sketch-box">
+            <h2>El uso de cada uno de estos medios de comunicación varia según cuánta información se tenga del tema, en dónde se vaya a exponer, para qué público, etcétera.</h2>
+        </section>
+
+        <footer class="bibliography">
+            <p>Materias: <span>Tecnología de la Información, Laboratorio</span></p>
+        </footer>
+    </div>
+
+    <div id="infoPasoModal" class="modal-overlay">
+        <div class="modal-content">
+            <button class="close-modal-btn" onclick="closePasoInfo()">✕</button>
+            <div class="modal-body-layout">
+                <div class="modal-graphic-box">
+                    <img id="modalPasoImage" src="" alt="Imagen del Paso">
+                </div>
+                <div class="modal-text-side">
+                    <h3 id="modalPasoTitle">PASO CIENTÍFICO</h3>
+                    <p id="modalPasoDescription">...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const infoMetodoCientifico = {
+            observacion: {
+                titulo: "Observación",
+                descripcion: "Es el primer paso fundamental. Consiste en examinar atentamente un hecho que nos cause curiosidad y recolectar datos o preguntas a tener en cuenta.",
+                imagen: "https://insurgenciamagisterial.com/wp-content/uploads/2023/10/a-2.png"
+            },
+            hipotesis: {
+                titulo: "Hipótesis",
+                descripcion: "Es una suposición o explicación temporal que se formula para responder a la pregunta planteada por la observación. Debe ser clara y poder ser puesta a prueba.",
+                imagen: "https://www.universidadviu.com/sites/universidadviu.com/files/images/pasos-del-metodo-cientifico.jpg"
+            },
+            experimentacion: {
+                titulo: "Experimentación",
+                descripcion: "Se llevan a cabo pruebas y experimentos controlados para comprobar si la hipótesis planteada es correcta o falsa, variando variables de forma medida.",
+                imagen: "https://concepto.de/wp-content/uploads/2018/09/experimentacion-cientifica1-e1537979540123.jpg"
+            },
+            analisis: {
+                titulo: "Análisis de Resultados - Conclusión",
+                descripcion: "Se interpretan los datos obtenidos en la experimentación para confirmar o refutar la hipótesis.",
+                imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTI7hilEkiCGudR19ke5SwoUi9U6zoCR5SIlSGvhAlCy-rYrk8_svdUrQ7E&s=10"
+            },
+            comunicacion: {
+                titulo: "Comunicación",
+                descripcion: "Se publican y comparten las conclusiones con la comunidad científica a través de informes científicos, papers, posters o revistas para que otros puedan revisar y replicar el estudio. También es importante mencionar el uso de aplicaciones digitales para cumplir con este propósito como Scielo.",
+                imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvtOAeD1ZMu9QkU6o_LsBoBdVOvObGVWvFqa5J8r-FHw&s=10"
+            }
+        };
+
+        function openPasoInfo(pasoClave) {
+            const modal = document.getElementById("infoPasoModal");
+            const titulo = document.getElementById("modalPasoTitle");
+            const descripcion = document.getElementById("modalPasoDescription");
+            const imagen = document.getElementById("modalPasoImage");
+
+            if (infoMetodoCientifico[pasoClave]) {
+                titulo.innerText = infoMetodoCientifico[pasoClave].titulo;
+                descripcion.innerText = infoMetodoCientifico[pasoClave].descripcion;
+                imagen.src = infoMetodoCientifico[pasoClave].imagen;
+                imagen.alt = infoMetodoCientifico[pasoClave].titulo;
+                modal.classList.add("show-modal");
+            }
+        }
+
+        function closePasoInfo() {
+            const modal = document.getElementById("infoPasoModal");
+            modal.classList.remove("show-modal");
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById("infoPasoModal");
+            if (event.target === modal) {
+                closePasoInfo();
+            }
+        }
+    </script>
+</body>
+</html>
